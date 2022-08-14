@@ -1,48 +1,51 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Search Products"
-            [(ngModel)]="prodductSearchValue">
+            <input type="text" class="form-control" placeholder="Search Products" [(ngModel)]="prodductSearchValue">
         </div>
-            <div class="col">
-                <button type="button" class="btn btn-primary" (click)="hideShowProductImages()">{{isProductImgHideShowText}} Product Images</button>
-            </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" (click)="hideShowProductImages()">{{isProductImgHideShowText}}
+                Product Images</button>
+        </div>
     </div>
     <div class="row" style="margin-top: 20px;">
         <table class="table">
             <thead>
                 <tr>
-                <th>ID</th>
-                <th *ngIf="isProductImgShow">Product Image</th>
-                <th>Product Name</th>
-                <th>Product Qty</th>
-                <th>Product Price</th>
-                <th>Color</th>
-                <th>In-Stock</th>
-                <th>Buy Product</th>
-            </tr>
+                    <th>ID</th>
+                    <th *ngIf="isProductImgShow">Product Image</th>
+                    <th>Product Name</th>
+                    <th>Product Qty</th>
+                    <th>Product Price</th>
+                    <th>Color</th>
+                    <th>In-Stock</th>
+                    <th>Buy Product</th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let product of productList | productSearch:prodductSearchValue">
                     <td>{{product.productID}}</td>
-                    <td *ngIf="isProductImgShow"><img src="{{product.productImgPath}}" [style.height.px]="productImgHeight" [style.width.px]="productImgWidth"/>
-                        </td>
+                    <td *ngIf="isProductImgShow"><img src="{{product.productImgPath}}"
+                            [style.height.px]="productImgHeight" [style.width.px]="productImgWidth" />
+                    </td>
                     <td>{{product.productTitle}}</td>
                     <td>{{product.productQty}}</td>
                     <td>{{product.productPrice | currency:'INR'}}</td>
                     <td>{{product.productColor}}</td>
                     <td>{{product.productInStoke}}</td>
                     <td *ngIf="product.productQty < 10;else success">
-                        <input type="text" placeholder="Add Qty" [(ngModel)]="product.initBuyOty"/>
-                        <button type="button" class="btn btn-primary" disabled style="margin-left: 8px;">Buy Now</button>
+                        <input type="text" placeholder="Add Qty" [(ngModel)]="product.initBuyOty" />
+                        <button type="button" class="btn btn-primary" disabled style="margin-left: 8px;">Buy
+                            Now</button>
                     </td>
                     <ng-template #success>
                         <td>
-                            <input type="text" placeholder="Add Oty" [(ngModel)]="product.initBuyOty"/>
-                        <button type="button" class="btn btn-primary"style="margin-left: 8px;" (click)="buyNow(product)">Buy Now</button>
-                    </td>
+                            <input type="text" placeholder="Add Oty" [(ngModel)]="product.initBuyOty" />
+                            <button type="button" class="btn btn-primary" style="margin-left: 8px;"
+                                (click)="buyNow(product)">Buy Now</button>
+                        </td>
                     </ng-template>
-                    
+
                 </tr>
             </tbody>
         </table>
